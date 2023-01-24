@@ -31,23 +31,31 @@ int correct_format(char c)
  * third is a bool if found a char after %
  */
 
-int *print(va_list args, const char *s, int percent_before)
+int *print(va_list *args, const char *s, int percent_before)
 {
 	int i;
 	int space_exist = 0;
 	int r = 0;
 	int *arr = malloc(sizeof(int) * 3);
-	int (*printer)(va_list);
+	int (*printer)(va_list*);
 
 	for (i = 1; s[i] != '\0'; i++)
 	{
 		/* TODO: check if the character is one if the available format */
 		if (correct_format(s[i]))
 		{
-			printer = get_print(s[i]);
-			arr[0] = printer(args);
-			arr[1] = i;
-			arr[2] = (s[i] != '%' || percent_before) ? 1 : 0;
+            if (s[i] == '%')
+            {
+                _putchar('%');
+                arr[0] = 1;
+                arr[1] = i;
+                arr[2] = percent_before ? 1 : 0;
+                return (arr);
+            }
+            printer = get_print(s[i]);
+            arr[0] = printer(args);
+            arr[1] = i;
+            arr[2] = 1;
 			return (arr);
 		} /* if not */
 		else
@@ -83,7 +91,7 @@ int *print(va_list args, const char *s, int percent_before)
 	else
 	{
 		arr[0] = 0;
-		arr[2] = 0;
+		arr[2] = -1;
 	}
 	arr[1] = i - 1;
 

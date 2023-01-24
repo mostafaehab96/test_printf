@@ -6,9 +6,9 @@
  * @arg: arguments
  * Return: Nothing
  */
-int print_char(va_list arg)
+int print_char(va_list *arg)
 {
-	char c = va_arg(arg, int);
+	char c = va_arg(*arg, int);
 
 	_putchar(c);
 
@@ -20,9 +20,9 @@ int print_char(va_list arg)
  * @arg: arguments
  * Return: Nothing
  */
-int print_int(va_list arg)
+int print_int(va_list *arg)
 {
-	int i = va_arg(arg, int);
+	int i = va_arg(*arg, int);
 
 	return (print_number(i));
 }
@@ -32,9 +32,9 @@ int print_int(va_list arg)
  * @arg: arguments
  * Return: Nothing
  */
-int print_string(va_list arg)
+int print_string(va_list *arg)
 {
-	char *s = va_arg(arg, char *);
+	char *s = va_arg(*arg, char *);
 	int i;
 
 	for (i = 0; s[i] != '\0'; i++)

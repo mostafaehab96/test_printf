@@ -13,7 +13,7 @@ int _printf(const char *format, ...)
 	va_list args;
 	int i = 0;
 	int r = 0;
-	int *ar;
+    int *ar = NULL;
 	int percent_found = 0;
 
 	va_start(args, format);
@@ -23,7 +23,7 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			ar = print(args, format + i, percent_found);
+			ar = print(&args, format + i, percent_found);
 			r += ar[0] - 1;
 			i += ar[1];
 			percent_found = ar[2];
@@ -34,10 +34,9 @@ int _printf(const char *format, ...)
 		i++;
 		r++;
 	}
-	/* %%% , %, -1 */
 	va_end(args);
 	free(ar);
-	if (percent_found)
-		return (r);
-	return (-1);
+	if (percent_found == -1)
+		return (-1);
+	return (r);
 }

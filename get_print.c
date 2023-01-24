@@ -7,14 +7,14 @@
  * Return: the correct function if exists, NULL otherwise
  */
 
-int (*get_print(char s)) (va_list arg)
+int (*get_print(char s)) (va_list *arg)
 {
 	func_print printers[] = {
 		{'d', print_int},
 		{'i', print_int},
 		{'c', print_char},
 		{'s', print_string},
-		{'%', print_char}
+		{'%', NULL}
 	};
 
 	int i = 0;
